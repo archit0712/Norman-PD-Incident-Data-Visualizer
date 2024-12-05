@@ -150,31 +150,52 @@ def extract_incident_pdf_data(pdf_path):
 
 
 # Function to create a database, we can either enter the database name in the command line or use the default database name.
-def create_database(db_name):
-    # Create resources directory if it doesn't exist
-    resources_folder = os.path.join(os.getcwd(), 'resources')
-    os.makedirs(resources_folder, exist_ok=True)  
+# def create_database(db_name):
+#     # Create resources directory if it doesn't exist
+#     resources_folder = os.path.join(os.getcwd(), 'resources')
+#     os.makedirs(resources_folder, exist_ok=True)  
 
-    database_path = os.path.join(resources_folder, db_name) 
-     # Save to resources directory
-    if os.path.exists(database_path):
-        os.remove(database_path)
+#     database_path = os.path.join(resources_folder, db_name) 
+#      # Save to resources directory
+#     if os.path.exists(database_path):
+#         os.remove(database_path)
+#     conn = sqlite3.connect(database_path)
+#     cursor = conn.cursor()
+#     # Table Creation
+#     cursor.execute('''         
+#         CREATE TABLE IF NOT EXISTS incidents (          
+#             id INTEGER PRIMARY KEY,
+#             date_time TEXT,
+#             incident_number TEXT,
+#             location TEXT,
+#             nature TEXT,
+#             incident_ori TEXT
+#         )
+#     ''')
+#     conn.commit()         # saving the changes
+#     return conn
+def create_database(db_name):
+    resources_folder = os.path.join(os.getcwd(), 'resources')
+    os.makedirs(resources_folder, exist_ok=True)
+    database_path = os.path.join(resources_folder, db_name)
+    
+    # Instead of deleting the database, we'll just connect to it
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
-    # Table Creation
-    cursor.execute('''         
-        CREATE TABLE IF NOT EXISTS incidents (          
-            id INTEGER PRIMARY KEY,
-            date_time TEXT,
-            incident_number TEXT,
-            location TEXT,
-            nature TEXT,
-            incident_ori TEXT
-        )
+    
+    # Create the table if it doesn't exist
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS incidents (
+        id INTEGER PRIMARY KEY,
+        date_time TEXT,
+        incident_number TEXT,
+        location TEXT,
+        nature TEXT,
+        incident_ori TEXT
+    )
     ''')
-    conn.commit()         # saving the changes
+    conn.commit()
     return conn
-
 
 # Function to insert an incident into the database.
 def insert_incident_data(conn, incident):

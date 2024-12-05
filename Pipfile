@@ -19,6 +19,7 @@ scikit-learn = "*"
 folium = "*"
 frontend = "*"
 httpx = "*"
+streamlit-folium = "*"
 
 [dev-packages]
 

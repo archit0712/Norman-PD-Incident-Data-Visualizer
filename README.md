@@ -1,5 +1,3 @@
-Here's a comprehensive README for the Norman PD Incident Data Visualizer project:
-
 # Norman PD Incident Data Visualizer
 
 This project provides a web-based visualization tool for Norman Police Department incident data. It allows users to download incident PDFs, process the data, and view various visualizations.
